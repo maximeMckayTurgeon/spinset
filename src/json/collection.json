@@ -59,6 +59,10 @@
         {
             "id": 15,
             "nom": "monde"
+        },
+        {
+            "id": 16,
+            "nom": "hardcore"
         }
     ],
 
