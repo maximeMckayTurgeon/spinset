@@ -1,0 +1,66 @@
+{
+    "styles": [
+        {
+            "id": 1,
+            "nom": "progressif"
+        },
+        {
+            "id": 2,
+            "nom": "rock"
+        },
+        {
+            "id": 3,
+            "nom": "death metal"
+        },
+        {
+            "id": 4,
+            "nom": "black metal"
+        },
+        {
+            "id": 5,
+            "nom": "post"
+        },
+        {
+            "id": 6,
+            "nom": "metal"
+        },
+        {
+            "id": 7,
+            "nom": "doom"
+        },
+        {
+            "id": 8,
+            "nom": "stoner"
+        },
+        {
+            "id": 9,
+            "nom": "sludge"
+        },
+        {
+            "id": 10,
+            "nom": "classique"
+        },
+        {
+            "id": 11,
+            "nom": "jazz"
+        },
+        {
+            "id": 12,
+            "nom": "pop"
+        },
+        {
+            "id": 13,
+            "nom": "chanson francaise"
+        },
+        {
+            "id": 14,
+            "nom": "djent"
+        },
+        {
+            "id": 15,
+            "nom": "monde"
+        }
+    ],
+
+    "Groupes": []
+}
