@@ -3,14 +3,14 @@ import Album from "./Album";
 
 const Random = (props) => {
     const [randomAlbum, setRandomAlbum] = useState({});
-    const [newAlbum, setNewAlbum] = useState(0);
+    const [newAlbum, setNewAlbum] = useState(true);
     useEffect(() => {
         let randomIndex = Math.floor(Math.random() * 100);
         setRandomAlbum(props[randomIndex]);
     }, [newAlbum]);
 
     const getNewAlbum = () => {
-        setNewAlbum(newAlbum + 1);
+        newAlbum ? setNewAlbum(false) : setNewAlbum(true);
     };
 
     return (

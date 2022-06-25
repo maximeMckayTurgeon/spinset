@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Album = (props) => {
     const { basic_information } = props;
@@ -8,9 +8,11 @@ const Album = (props) => {
 
     return (
         <div className="album">
-            <img src={basic_information.thumb} alt="pochette"></img>
-            <h1>{basic_information.artists[0].name}</h1>
-            <h2>{basic_information.title}</h2>
+            <img src={basic_information.cover_image} alt="pochette"></img>
+            <div>
+                <h1>{basic_information.artists[0].name}</h1>
+                <h2>{basic_information.title}</h2>
+            </div>
         </div>
     );
 };
