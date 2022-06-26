@@ -1,4 +1,3 @@
-
 import "./App.css";
 import Accueil from "./pages/Accueil";
 
