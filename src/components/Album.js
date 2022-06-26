@@ -12,6 +12,9 @@ const Album = (props) => {
             <div>
                 <h1>{basic_information.artists[0].name}</h1>
                 <h2>{basic_information.title}</h2>
+                {basic_information.styles.map((style) => (
+                    <h4>{style}</h4>
+                ))}
             </div>
         </div>
     );

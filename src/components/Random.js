@@ -7,7 +7,7 @@ const Random = (props) => {
     useEffect(() => {
         let randomIndex = Math.floor(Math.random() * 100);
         setRandomAlbum(props[randomIndex]);
-    }, [newAlbum]);
+    }, [newAlbum, props]);
 
     const getNewAlbum = () => {
         newAlbum ? setNewAlbum(false) : setNewAlbum(true);
@@ -16,7 +16,7 @@ const Random = (props) => {
     return (
         <div className="random">
             <Album {...randomAlbum} />
-            <button onClick={getNewAlbum}>Album aleatoire</button>
+            <button onClick={getNewAlbum}>Album Random</button>
         </div>
     );
 };
