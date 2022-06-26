@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Random from "../components/Random";
+import Search from "../components/Search";
 
 const Accueil = () => {
     const [isLoading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const Accueil = () => {
         <>
             <Random {...collection} />
             <Filter {...collection} />
+            <Search {...collection} />
         </>
     );
 };

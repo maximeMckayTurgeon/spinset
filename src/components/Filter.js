@@ -3,8 +3,6 @@ import Album from "./Album";
 
 const Filter = (props) => {
     const collection = props;
-    console.log(Object.values(collection).length);
-    console.log(Object.values(collection));
     const [style, setStyle] = useState("");
     const [albums, setAlbums] = useState([]);
     const [oneAlbum, setOneAlbum] = useState(false);
@@ -37,7 +35,6 @@ const Filter = (props) => {
         );
         setAlbums(filteredAlbums);
     }, [style]);
-    console.log(albums);
 
     return (
         <div className="filter">
