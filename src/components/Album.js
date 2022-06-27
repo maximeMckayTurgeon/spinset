@@ -1,7 +1,14 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Album = (props) => {
     const { basic_information } = props;
+    const [tracklist, setTracklist] = useState({});
+    // useEffect(() => {
+    //     axios
+    //         .get(basic_information.ressource_url)
+    //         .then((res) => setTracklist(res.data.tracklist));
+    // }, [basic_information]);
     if (!basic_information) {
         return null;
     }
@@ -16,6 +23,15 @@ const Album = (props) => {
                     <h4>{style}</h4>
                 ))}
             </div>
+            {/* <div>
+                <ol>
+                    {tracklist.map((track) => (
+                        <li>
+                            {track.title} -- {track.duration}
+                        </li>
+                    ))}
+                </ol>
+            </div> */}
         </div>
     );
 };

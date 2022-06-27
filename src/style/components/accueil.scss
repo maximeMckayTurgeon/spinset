@@ -1,10 +1,18 @@
 .accueil {
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-around;
+
+    max-width: 80%;
+    min-height: 100vh;
+    margin: auto;
 
     .buttonDiv {
         display: flex;
         justify-content: space-around;
+        width: 100%;
+        margin: 1.5em;
     }
     button {
         align-items: center;
