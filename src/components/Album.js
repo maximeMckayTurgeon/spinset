@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 
 const Album = (props) => {
   const { basic_information } = props;
-  console.log(props.basic_information.resource_url);
+  console.log(props);
   const [tracklist, setTracklist] = useState({});
 
-  useEffect(() => {
-    axios
-      .get(basic_information.resource_url)
-      .then((res) => setTracklist(res.data.tracklist));
-  }, [basic_information]);
+  //   useEffect(() => {
+  //     axios
+  //       .get(basic_information.resource_url)
+  //       .then((res) => setTracklist(res.data.tracklist));
+  //   }, [props, tracklist]);
   if (!basic_information) {
     return null;
   }
@@ -26,13 +26,13 @@ const Album = (props) => {
           <h4>{style}</h4>
         ))}
       </div>
-      <div>
+      {/* <div>
         <ol>
           {tracklist.map((track) => (
             <li>{track.title}</li>
           ))}
         </ol>
-      </div>
+      </div> */}
     </div>
   );
 };
