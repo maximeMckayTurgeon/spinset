@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import Filter from "../components/Filter";
 import Random from "../components/Random";
 import Search from "../components/Search";
@@ -8,6 +9,7 @@ const Accueil = () => {
     const [isLoading, setLoading] = useState(true);
     const [collection, setCollection] = useState([]);
     const [pages, setPages] = useState(1);
+    const [module, setModule] = useState("");
     useEffect(() => {
         axios.get(`/.netlify/functions/discogs?page=1`).then((res) => {
             setCollection(res.data.releases);
@@ -26,16 +28,48 @@ const Accueil = () => {
         }
     }, [pages]);
 
+   const chooseModule = (e) => {
+    setModule(e.target.value)
+   }
+
     if (isLoading) {
         return <div>Ca s'en vient...</div>;
     }
 
     return (
-        <>
-            <Random {...collection} />
-            <Filter {...collection} />
-            <Search {...collection} />
-        </>
+        <div className="accueil">
+            <div className="buttonDiv">
+                <button
+                    className="buttonModule"
+                    type="button"
+                    value="random"
+                    onClick={chooseModule}
+                >
+                    Random
+                </button>
+                <button
+                    className="buttonModule"
+                    type="button"
+                    value="filter"
+                    onClick={chooseModule}
+                >
+                    Par genre
+                </button>
+                <button
+                    className="buttonModule"
+                    type="button"
+                    value="search"
+                    onClick={chooseModule}
+                >
+                    Recherche par artiste
+                </button>
+            </div>
+            {{
+                random: <Random {...collection} />,
+                filter: <Filter {...collection} />,
+                search: <Search {...collection} />
+            }[module] || <div>Choisi de quoi!</div>}
+        </div>
     );
 };
 
