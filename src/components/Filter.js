@@ -6,6 +6,8 @@ const Filter = (props) => {
     const [style, setStyle] = useState("");
     const [albums, setAlbums] = useState([]);
     const [oneAlbum, setOneAlbum] = useState(false);
+    const tousLesAlbums = document.getElementById("tousLesAlbums");
+    const albumRandom = document.getElementById("albumRandom");
     let stylesArr = [];
     for (let i = 0; i < Object.values(collection).length; i++) {
         let styles = collection[i].basic_information.styles;
@@ -19,6 +21,7 @@ const Filter = (props) => {
 
     const changeStyle = (e) => {
         setStyle(e.target.value);
+        oneAlbum ? albumRandom.focus() : tousLesAlbums.focus();
     };
 
     const onlyOneAlbum = () => {
@@ -38,22 +41,28 @@ const Filter = (props) => {
 
     return (
         <div className="filter">
-            <label>
-                Style:
+            <div className="top">
                 <select
                     name="styles"
                     id="styles"
                     value={style}
                     onChange={changeStyle}
                 >
+                    <option value="" disabled selected>
+                        Choisir un genre
+                    </option>
                     {stylesArr.map((style) => (
                         <option value={style}>{style}</option>
                     ))}
                 </select>
-            </label>
 
-            <button onClick={onlyOneAlbum}>Un seul album</button>
-            <button onClick={allAlbums}>Tous les albums</button>
+                <button id="albumRandom" onClick={onlyOneAlbum}>
+                    Album random
+                </button>
+                <button id="tousLesAlbums" onClick={allAlbums} autoFocus>
+                    Tous les albums
+                </button>
+            </div>
 
             {oneAlbum && (
                 <Album {...albums[Math.floor(Math.random() * albums.length)]} />

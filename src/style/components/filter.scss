@@ -1,0 +1,23 @@
+.filter {
+    .top {
+        min-width: 30vw;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    label {
+        padding: 0 5px;
+    }
+
+    select {
+        min-height: 35px;
+        text-align: center;
+        border: 1px solid #149bf3;
+        border-radius: 100px;
+    }
+
+    select:focus {
+        outline: 2px solid #149bf3;
+    }
+}

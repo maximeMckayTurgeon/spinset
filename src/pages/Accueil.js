@@ -10,15 +10,17 @@ const Accueil = () => {
     const [collection, setCollection] = useState([]);
     const [pages, setPages] = useState(1);
     const [module, setModule] = useState("");
+    const [nbrAlbums, setNbrAlbums] = useState(0);
     useEffect(() => {
         axios.get(`/.netlify/functions/discogs?page=1`).then((res) => {
-            setCollection(res.data.releases);
+            // setCollection(res.data.releases);
             setPages(res.data.pagination.pages);
+            setNbrAlbums(res.data.pagination.items);
         });
     }, []);
 
     useEffect(() => {
-        for (let i = 2; i <= pages; i++) {
+        for (let i = 1; i <= pages; i++) {
             axios.get(`/.netlify/functions/discogs?page=${i}`).then((res) => {
                 setCollection([...collection, ...res.data.releases]);
                 if (i === pages) {
@@ -28,9 +30,9 @@ const Accueil = () => {
         }
     }, [pages]);
 
-   const chooseModule = (e) => {
-    setModule(e.target.value)
-   }
+    const chooseModule = (e) => {
+        setModule(e.target.value);
+    };
 
     if (isLoading) {
         return <div>Ca s'en vient...</div>;
@@ -38,6 +40,7 @@ const Accueil = () => {
 
     return (
         <div className="accueil">
+            <h1>{`${nbrAlbums} Albums en stock!`}</h1>
             <div className="buttonDiv">
                 <button
                     className="buttonModule"
