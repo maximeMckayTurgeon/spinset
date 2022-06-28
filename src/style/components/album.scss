@@ -1,8 +1,8 @@
 .album {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
+    // display: flex;
+    // flex-flow: row nowrap;
+    // justify-content: flex-start;
+    // align-items: center;
     margin: 1.5em;
     padding: 1em 1.5em;
     border-radius: 10px;
@@ -11,20 +11,20 @@
     div {
         margin: 0 20px;
 
-        div {
-            max-width: 70%;
-            margin: 0;
-        }
+        // div {
+        //     max-width: 70%;
+        //     margin: 0;
+        // }
     }
 
     img {
-        max-width: 30vh;
+        max-width: 100%;
     }
 
-    h1,
-    h2 {
-        max-width: 70%;
-    }
+    // h1,
+    // h2 {
+    //     max-width: 70%;
+    // }
 
     .style {
         display: inline-block;

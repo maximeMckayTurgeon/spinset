@@ -1,4 +1,13 @@
-@import "./components/album.scss";
+// @import "./components/album.scss";
 @import "./components/accueil.scss";
 @import "./components/random.scss";
 @import "./components/filter.scss";
+
+.style {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 5px 10px;
+    border: 1px solid #f26419;
+    border-radius: 100px;
+}
+

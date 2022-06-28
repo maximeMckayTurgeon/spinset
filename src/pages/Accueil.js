@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Filter from "../components/Filter";
 import Random from "../components/Random";
 import Search from "../components/Search";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Accueil = () => {
     const [isLoading, setLoading] = useState(true);
@@ -39,40 +40,48 @@ const Accueil = () => {
     }
 
     return (
-        <div className="accueil">
-            <h1>{`${nbrAlbums} Albums en stock!`}</h1>
-            <div className="buttonDiv">
-                <button
-                    className="buttonModule"
-                    type="button"
-                    value="random"
-                    onClick={chooseModule}
-                >
-                    Random
-                </button>
-                <button
-                    className="buttonModule"
-                    type="button"
-                    value="filter"
-                    onClick={chooseModule}
-                >
-                    Par genre
-                </button>
-                <button
-                    className="buttonModule"
-                    type="button"
-                    value="search"
-                    onClick={chooseModule}
-                >
-                    Recherche par artiste
-                </button>
+        <Container>
+            <div className="accueil">
+                <h1 className="text-center mb-5">{`${nbrAlbums} Albums en stock!`}</h1>
+                <Row>
+                    <Col className="text-center my-2">
+                        <button
+                            className="buttonModule"
+                            type="button"
+                            value="random"
+                            onClick={chooseModule}
+                        >
+                            Random
+                        </button>
+                    </Col>
+                    <Col className="text-center my-2">
+                        <button
+                            className="buttonModule"
+                            type="button"
+                            value="filter"
+                            onClick={chooseModule}
+                        >
+                            Par genre
+                        </button>
+                    </Col>
+                    <Col className="text-center my-2">
+                        <button
+                            className="buttonModule"
+                            type="button"
+                            value="search"
+                            onClick={chooseModule}
+                        >
+                            Recherche
+                        </button>
+                    </Col>
+                </Row>
+                {{
+                    random: <Random {...collection} />,
+                    filter: <Filter {...collection} />,
+                    search: <Search {...collection} />
+                }[module] || <div>Choisi de quoi!</div>}
             </div>
-            {{
-                random: <Random {...collection} />,
-                filter: <Filter {...collection} />,
-                search: <Search {...collection} />
-            }[module] || <div>Choisi de quoi!</div>}
-        </div>
+        </Container>
     );
 };
 

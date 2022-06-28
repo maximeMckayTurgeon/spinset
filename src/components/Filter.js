@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Album from "./Album";
+import { Row, Col } from "react-bootstrap";
 
 const Filter = (props) => {
     const collection = props;
@@ -41,28 +42,33 @@ const Filter = (props) => {
 
     return (
         <div className="filter">
-            <div className="top">
-                <select
-                    name="styles"
-                    id="styles"
-                    value={style}
-                    onChange={changeStyle}
-                >
-                    <option value="" disabled selected>
-                        Choisir un genre
-                    </option>
-                    {stylesArr.map((style) => (
-                        <option value={style}>{style}</option>
-                    ))}
-                </select>
-
-                <button id="albumRandom" onClick={onlyOneAlbum}>
-                    Album random
-                </button>
-                <button id="tousLesAlbums" onClick={allAlbums} autoFocus>
-                    Tous les albums
-                </button>
-            </div>
+            <Row className="top justify-content-around">
+                <Col lg={4} className="text-center my-2">
+                    <select
+                        name="styles"
+                        id="styles"
+                        value={style}
+                        onChange={changeStyle}
+                    >
+                        <option value="" disabled selected>
+                            Choisir un genre
+                        </option>
+                        {stylesArr.map((style) => (
+                            <option value={style}>{style}</option>
+                        ))}
+                    </select>
+                </Col>
+                <Col xs={6} lg={4} className="text-center my-2">
+                    <button id="albumRandom" onClick={onlyOneAlbum}>
+                        Album random
+                    </button>
+                </Col>
+                <Col xs={6} lg={4} className="text-center my-2">
+                    <button id="tousLesAlbums" onClick={allAlbums} autoFocus>
+                        Tous les albums
+                    </button>
+                </Col>
+            </Row>
 
             {oneAlbum && (
                 <Album {...albums[Math.floor(Math.random() * albums.length)]} />
