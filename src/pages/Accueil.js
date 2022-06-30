@@ -80,7 +80,7 @@ const Accueil = () => {
                             onClick={chooseModule}
                         >
                             <span className="top-key"></span>
-                            <span className="text">Par Genre</span>
+                            <span className="text">Genre</span>
                             <span className="bottom-key-1"></span>
                             <span className="bottom-key-2"></span>
                         </button>

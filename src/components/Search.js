@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import Album from "./Album";
 
 const Search = (props) => {
@@ -38,30 +39,41 @@ const Search = (props) => {
     return (
         <div className="search">
             <form>
-                <input
-                    type="text"
-                    value={search}
-                    placeholder="Rechercher"
-                    onChange={changeSearch}
-                    onKeyDown={handleKeyPress}
-                ></input>
+                <Row className="justify-content-center align-items-center mt-5">
+                    <Col lg={6} className="text-center">
+                        <input
+                            type="text"
+                            value={search}
+                            placeholder=".  .  ."
+                            onChange={changeSearch}
+                            onKeyDown={handleKeyPress}
+                            className="inputText"
+                        ></input>
 
-                <button type="button" className="fancy" onClick={launchSearch}>
-                    <span className="top-key"></span>
-                    <span className="text">Rechercher</span>
-                    <span className="bottom-key-1"></span>
-                    <span className="bottom-key-2"></span>
-                </button>
+                        <button
+                            type="button"
+                            className="fancy"
+                            onClick={launchSearch}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">Rechercher</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
+                    </Col>
 
-                <label>
-                    <input
-                        type="radio"
-                        checked={param === "name"}
-                        value="name"
-                        onChange={changeParam}
-                    ></input>
-                    Par Band
-                </label>
+                    <Col lg={6} className="text-center">
+                        <label>
+                            <input
+                                type="radio"
+                                checked={param === "name"}
+                                value="name"
+                                onChange={changeParam}
+                            ></input>
+                            Par Band
+                        </label>
+                    </Col>
+                </Row>
             </form>
             {result.map((album) => (
                 <Album {...album} />
