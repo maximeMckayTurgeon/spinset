@@ -6,10 +6,12 @@
   .spinningVinyl {
     margin: auto;
     animation: 5s linear play infinite;
+    
   }
 
   .vinyl {
     text-align: center;
+    overflow: hidden;
   }
 
 
