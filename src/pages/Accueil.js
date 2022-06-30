@@ -40,7 +40,6 @@ const Accueil = () => {
     e.target.value
       ? setModule(e.target.value)
       : setModule(e.target.parentElement.value);
-    console.log(e.target.value);
   };
 
   if (isLoading) {
