@@ -75,9 +75,11 @@ const Search = (props) => {
                     </Col>
                 </Row>
             </form>
-            {result.map((album) => (
+            {result.length >= 1 ? (result.map((album) => (
                 <Album {...album} />
-            ))}
+            ))) : (
+                <div>J'en ai pas de tsa!</div>
+            )}
         </div>
     );
 };
