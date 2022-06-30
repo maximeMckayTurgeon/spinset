@@ -1,20 +1,16 @@
 .accueil {
-  
-    .menuAccueil {
-        z-index: 9999;
-    }
+  .menuAccueil {
+    z-index: 9999;
+  }
   .spinningVinyl {
     margin: auto;
     animation: 1.8s linear play infinite;
-    
   }
 
   .vinyl {
     text-align: center;
     overflow: hidden;
   }
-
-
 
   @keyframes play {
     0% {
