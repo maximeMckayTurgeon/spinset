@@ -38,46 +38,63 @@ const Accueil = () => {
     }, [pages]);
 
     const chooseModule = (e) => {
-        setModule(e.target.value);
+        e.target.value
+            ? setModule(e.target.value)
+            : setModule(e.target.parentElement.value);
+        console.log(e.target.value);
     };
 
     if (isLoading) {
-        return <div>Ca s'en vient...</div>;
+        return (
+            <div className="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        );
     }
 
     return (
         <Container>
             <div className="accueil">
                 <h1 className="text-center mb-5">{`${nbrAlbums} Albums en stock!`}</h1>
-                <Row>
+                <Row className="justify-content-center">
                     <Col className="text-center my-2">
                         <button
-                            className="buttonModule"
-                            type="button"
+                            className="fancy"
                             value="random"
                             onClick={chooseModule}
                         >
-                            Random
+                            <span className="top-key"></span>
+                            <span className="text">Random</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
                         </button>
                     </Col>
                     <Col className="text-center my-2">
                         <button
-                            className="buttonModule"
-                            type="button"
+                            className="fancy"
                             value="filter"
                             onClick={chooseModule}
                         >
-                            Par genre
+                            <span className="top-key"></span>
+                            <span className="text">Par Genre</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
                         </button>
                     </Col>
                     <Col className="text-center my-2">
                         <button
-                            className="buttonModule"
-                            type="button"
+                            className="fancy"
                             value="search"
                             onClick={chooseModule}
                         >
-                            Recherche
+                            <span className="top-key"></span>
+                            <span className="text">Recherche</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
                         </button>
                     </Col>
                 </Row>

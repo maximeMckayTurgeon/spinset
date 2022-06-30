@@ -19,7 +19,12 @@ const Random = (props) => {
     return (
         <div className="random">
             <Album {...randomAlbum} />
-            <button onClick={getNewAlbum}>Pas ça!</button>
+            <button className="fancy" value="random" onClick={getNewAlbum}>
+                <span className="top-key"></span>
+                <span className="text">Pas ca!</span>
+                <span className="bottom-key-1"></span>
+                <span className="bottom-key-2"></span>
+            </button>
         </div>
     );
 };

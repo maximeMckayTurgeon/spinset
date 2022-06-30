@@ -45,9 +45,14 @@ const Search = (props) => {
                     onChange={changeSearch}
                     onKeyDown={handleKeyPress}
                 ></input>
-                <button type="button" onClick={launchSearch}>
-                    Rechercher
+
+                <button type="button" className="fancy" onClick={launchSearch}>
+                    <span className="top-key"></span>
+                    <span className="text">Rechercher</span>
+                    <span className="bottom-key-1"></span>
+                    <span className="bottom-key-2"></span>
                 </button>
+
                 <label>
                     <input
                         type="radio"

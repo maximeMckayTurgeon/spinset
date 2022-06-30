@@ -59,13 +59,27 @@ const Filter = (props) => {
                     </select>
                 </Col>
                 <Col xs={6} lg={4} className="text-center my-2">
-                    <button id="albumRandom" onClick={onlyOneAlbum}>
-                        Album random
+                    <button
+                        id="albumRandom"
+                        className="fancy"
+                        onClick={onlyOneAlbum}
+                    >
+                        <span className="top-key"></span>
+                        <span className="text">Album random</span>
+                        <span className="bottom-key-1"></span>
+                        <span className="bottom-key-2"></span>
                     </button>
                 </Col>
                 <Col xs={6} lg={4} className="text-center my-2">
-                    <button id="tousLesAlbums" onClick={allAlbums} autoFocus>
-                        Tous les albums
+                    <button
+                        id="tousLesAlbums"
+                        className="fancy"
+                        onClick={allAlbums}
+                    >
+                        <span className="top-key"></span>
+                        <span className="text">Album random</span>
+                        <span className="bottom-key-1"></span>
+                        <span className="bottom-key-2"></span>
                     </button>
                 </Col>
             </Row>
