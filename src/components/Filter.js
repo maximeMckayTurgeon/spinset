@@ -77,7 +77,7 @@ const Filter = (props) => {
                         onClick={allAlbums}
                     >
                         <span className="top-key"></span>
-                        <span className="text">Album random</span>
+                        <span className="text">Tous les albums</span>
                         <span className="bottom-key-1"></span>
                         <span className="bottom-key-2"></span>
                     </button>
