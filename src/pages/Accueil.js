@@ -21,15 +21,31 @@ const Accueil = () => {
     }, []);
 
     useEffect(() => {
+        let promiseArr = [];
         for (let i = 1; i <= pages; i++) {
-            axios.get(`/.netlify/functions/discogs?page=${i}`).then((res) => {
-                setCollection([...collection, ...res.data.releases]);
-                if (i === pages) {
-                    setLoading(false);
-                }
-            });
+            promiseArr.push(axios.get(`/.netlify/functions/discogs?page=${i}`));
         }
+        Promise.all(promiseArr)
+            .then((reses) => {
+                for (let res of reses) {
+                    let releases = res.data.releases;
+                    console.log(releases);
+                    setCollection([...collection, ...releases]);
+                }
+            })
+            .finally(() => setLoading(false));
     }, [pages]);
+
+    // useEffect(() => {
+    //     for (let i = 1; i <= pages; i++) {
+    //         axios.get(`/.netlify/functions/discogs?page=${i}`).then((res) => {
+    //             setCollection([...collection, ...res.data.releases]);
+    //             if (i === pages) {
+    //                 setLoading(false);
+    //             }
+    //         });
+    //     }
+    // }, [pages]);
 
     const chooseModule = (e) => {
         setModule(e.target.value);
