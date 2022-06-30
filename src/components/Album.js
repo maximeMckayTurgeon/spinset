@@ -3,7 +3,6 @@ import { Col, Row, Image } from "react-bootstrap";
 
 const Album = (props) => {
     const { basic_information } = props;
-    console.log(props);
     if (!basic_information) {
         return null;
     }

@@ -15,7 +15,6 @@ const Random = (props) => {
     const getNewAlbum = () => {
         newAlbum ? setNewAlbum(false) : setNewAlbum(true);
     };
-    console.log(randomAlbum);
 
     return (
         <div className="random">

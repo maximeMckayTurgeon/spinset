@@ -14,7 +14,6 @@ const Accueil = () => {
     const [nbrAlbums, setNbrAlbums] = useState(0);
     useEffect(() => {
         axios.get(`/.netlify/functions/discogs?page=1`).then((res) => {
-            // setCollection(res.data.releases);
             setPages(res.data.pagination.pages);
             setNbrAlbums(res.data.pagination.items);
         });
@@ -22,30 +21,21 @@ const Accueil = () => {
 
     useEffect(() => {
         let promiseArr = [];
+        let resultArr = [];
         for (let i = 1; i <= pages; i++) {
             promiseArr.push(axios.get(`/.netlify/functions/discogs?page=${i}`));
         }
         Promise.all(promiseArr)
             .then((reses) => {
                 for (let res of reses) {
-                    let releases = res.data.releases;
-                    console.log(releases);
-                    setCollection([...collection, ...releases]);
+                    resultArr.push(...res.data.releases);
                 }
             })
-            .finally(() => setLoading(false));
+            .finally(() => {
+                setCollection([...resultArr]);
+                setLoading(false);
+            });
     }, [pages]);
-
-    // useEffect(() => {
-    //     for (let i = 1; i <= pages; i++) {
-    //         axios.get(`/.netlify/functions/discogs?page=${i}`).then((res) => {
-    //             setCollection([...collection, ...res.data.releases]);
-    //             if (i === pages) {
-    //                 setLoading(false);
-    //             }
-    //         });
-    //     }
-    // }, [pages]);
 
     const chooseModule = (e) => {
         setModule(e.target.value);
