@@ -16,6 +16,7 @@ const Search = (props) => {
 
     const changeParam = (e) => {
         setParam(e.target.value);
+        setSearch(".  .  .");
     };
 
     const handleKeyPress = (e) => {
@@ -70,7 +71,10 @@ const Search = (props) => {
                         </button>
                     </Col>
 
-                    <Col lg={6} className="text-center">
+                    <Col
+                        lg={3}
+                        className="text-center d-flex justify-content-center my-2"
+                    >
                         <label>
                             <input
                                 type="radio"
@@ -78,6 +82,7 @@ const Search = (props) => {
                                 value="band"
                                 onChange={changeParam}
                             ></input>
+                            <span className="checkmark"></span>
                             Par Band
                         </label>
                         <label>
@@ -87,6 +92,7 @@ const Search = (props) => {
                                 value="album"
                                 onChange={changeParam}
                             ></input>
+                            <span className="checkmark"></span>
                             Par Album
                         </label>
                     </Col>

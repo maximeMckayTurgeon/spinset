@@ -6,5 +6,41 @@
     .inputText {
         padding: 0.85em;
         border: 2px solid #000;
+        appearance: none;
+    }
+
+    .checkmark {
+        width: 32px;
+        height: 32px;
+        border-radius: 5px;
+        background-color: #000;
+    }
+
+    label {
+        font-weight: 700;
+        text-transform: uppercase;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            display: inline-flex;
+            align-self: center;
+            height: 25px;
+            width: 25px;
+            background-color: black;
+            border: 3px solid black;
+            margin: 0 1em;
+            border-radius: 0;
+        }
+
+        input:checked ~ .checkmark {
+            background-color: #f26419;
+        }
     }
 }

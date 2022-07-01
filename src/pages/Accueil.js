@@ -57,7 +57,9 @@ const Accueil = () => {
     return (
         <Container>
             <div className="accueil">
-                <h1 className="text-center mb-5">{`${nbrAlbums} Albums en stock!`}</h1>
+                <h1 className="text-center mb-5 mt-3">
+                    {`${nbrAlbums} Albums en stock!`} On écoute quoi?
+                </h1>
                 <Row className="justify-content-center menuAccueil">
                     <Col className="text-center my-2">
                         <button
