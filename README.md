@@ -1,5 +1,3 @@
-Projet pour gérer ma collection de vinyles, et m'aider a choisir quoi écouter!
+Projet pour aider à choisir quoi écouter quand il y a de la visite à la maison! Utilise l'API de Discogs comme source de données sur ma collection de vinyles
 
-idees
-randomizer (par style etc)
-playlist pour temps (donne 3h+ autrs params, construit playlist)
+React.js, SASS, API REST, React-Bootstrap

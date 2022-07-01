@@ -5,7 +5,7 @@ import Album from "./Album";
 const Search = (props) => {
     const collection = props;
     const [search, setSearch] = useState("");
-    const [param, setParam] = useState("");
+    const [param, setParam] = useState("band");
     const [tempResult, setTempResult] = useState("");
     const [result, setResult] = useState([]);
     const [noResult, setNoResult] = useState("");
