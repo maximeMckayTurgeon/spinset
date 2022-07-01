@@ -84,6 +84,11 @@ const Filter = (props) => {
                 </Col>
             </Row>
             <Row>
+                {albums.length >= 1 && (
+                    <h2>
+                        {albums.length} Album{albums.length >= 2 && "s"}!
+                    </h2>
+                )}
                 {oneAlbum ? (
                     <Album
                         {...albums[Math.floor(Math.random() * albums.length)]}

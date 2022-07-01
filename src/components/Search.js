@@ -61,7 +61,7 @@ const Search = (props) => {
 
                         <button
                             type="button"
-                            className="fancy"
+                            className="fancy mt-3"
                             onClick={launchSearch}
                         >
                             <span className="top-key"></span>
@@ -98,6 +98,9 @@ const Search = (props) => {
                     </Col>
                 </Row>
             </form>
+
+            {result.length >= 1 && <h2>{result.length} albums!</h2>}
+
             {result.length >= 1 ? (
                 result.map((album) => <Album {...album} key={album.id} />)
             ) : (
