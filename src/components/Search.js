@@ -44,6 +44,9 @@ const Search = (props) => {
 
     const launchSearch = () => {
         setResult(tempResult);
+        if (result.length === 0) {
+            setNoResult("J'en ai pas de tsa!");
+        }
     };
     return (
         <div className="search">
@@ -104,7 +107,7 @@ const Search = (props) => {
             {result.length >= 1 ? (
                 result.map((album) => <Album {...album} key={album.id} />)
             ) : (
-                <div>{noResult}</div>
+                <h2>{noResult}</h2>
             )}
         </div>
     );
