@@ -13,7 +13,7 @@ const Random = (props) => {
     }, [newAlbum, props]);
 
     const getNewAlbum = () => {
-        newAlbum ? setNewAlbum(false) : setNewAlbum(true);
+        setNewAlbum(!newAlbum);
     };
 
     return (

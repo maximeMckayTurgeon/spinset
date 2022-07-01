@@ -4,6 +4,7 @@ import Filter from "../components/Filter";
 import Random from "../components/Random";
 import Search from "../components/Search";
 import { Col, Container, Row } from "react-bootstrap";
+import CountUp from "react-countup";
 
 const Accueil = () => {
     const [isLoading, setLoading] = useState(true);
@@ -57,10 +58,11 @@ const Accueil = () => {
     return (
         <Container>
             <div className="accueil">
-                <h1 className="text-center mb-5 mt-3">
-                    {`${nbrAlbums} Albums en stock!`} On écoute quoi?
+                <h1 className="text-center mb-5 mt-3 ">
+                    <CountUp end={nbrAlbums} duration={1.5} /> Albums en stock!
+                    On écoute quoi?
                 </h1>
-                <Row className="justify-content-center menuAccueil">
+                <Row className="justify-content-center menuAccueil shadow  rounded">
                     <Col className="text-center my-2">
                         <button
                             className="fancy"
@@ -98,6 +100,7 @@ const Accueil = () => {
                         </button>
                     </Col>
                 </Row>
+
                 {{
                     random: <Random {...collection} />,
                     filter: <Filter {...collection} />,

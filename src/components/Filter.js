@@ -42,7 +42,7 @@ const Filter = (props) => {
 
     return (
         <div className="filter">
-            <Row className="top justify-content-around">
+            <Row className="top justify-content-around mt-3 ">
                 <Col lg={4} className="text-center my-2">
                     <select
                         name="styles"
@@ -83,12 +83,15 @@ const Filter = (props) => {
                     </button>
                 </Col>
             </Row>
-
-            {oneAlbum ? (
-                <Album {...albums[Math.floor(Math.random() * albums.length)]} />
-            ) : (
-                albums.map((album) => <Album {...album} key={album.id} />)
-            )}
+            <Row>
+                {oneAlbum ? (
+                    <Album
+                        {...albums[Math.floor(Math.random() * albums.length)]}
+                    />
+                ) : (
+                    albums.map((album) => <Album {...album} key={album.id} />)
+                )}
+            </Row>
         </div>
     );
 };
