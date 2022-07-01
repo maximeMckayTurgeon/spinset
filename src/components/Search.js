@@ -16,7 +16,7 @@ const Search = (props) => {
 
     const changeParam = (e) => {
         setParam(e.target.value);
-        setSearch(".  .  .");
+        setSearch("");
     };
 
     const handleKeyPress = (e) => {
