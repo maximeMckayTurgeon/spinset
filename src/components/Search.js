@@ -6,8 +6,9 @@ const Search = (props) => {
     const collection = props;
     const [search, setSearch] = useState("");
     const [param, setParam] = useState("");
-    const [tempResult, setTempResult] = useState([]);
+    const [tempResult, setTempResult] = useState("");
     const [result, setResult] = useState([]);
+    const [noResult, setNoResult] = useState("");
 
     const changeSearch = (e) => {
         setSearch(e.target.value);
@@ -21,14 +22,21 @@ const Search = (props) => {
         if (e.key === "Enter") {
             e.preventDefault();
             launchSearch();
+            if (result.length === 0) {
+                setNoResult("J'en ai pas de tsa!");
+            }
         }
     };
 
     useEffect(() => {
         let filteredAlbums = Object.values(collection).filter((album) =>
-            album.basic_information.artists[0].name
-                .toLowerCase()
-                .includes(search.toLowerCase())
+            param === "band"
+                ? album.basic_information.artists[0].name
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
+                : album.basic_information.title
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
         );
         setTempResult(filteredAlbums);
     }, [search]);
@@ -66,19 +74,28 @@ const Search = (props) => {
                         <label>
                             <input
                                 type="radio"
-                                checked={param === "name"}
-                                value="name"
+                                checked={param === "band"}
+                                value="band"
                                 onChange={changeParam}
                             ></input>
                             Par Band
                         </label>
+                        <label>
+                            <input
+                                type="radio"
+                                checked={param === "album"}
+                                value="album"
+                                onChange={changeParam}
+                            ></input>
+                            Par Album
+                        </label>
                     </Col>
                 </Row>
             </form>
-            {result.length >= 1 ? (result.map((album) => (
-                <Album {...album} />
-            ))) : (
-                <div>J'en ai pas de tsa!</div>
+            {result.length >= 1 ? (
+                result.map((album) => <Album {...album} />)
+            ) : (
+                <div>{noResult}</div>
             )}
         </div>
     );
