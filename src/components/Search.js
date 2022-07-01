@@ -93,7 +93,7 @@ const Search = (props) => {
                 </Row>
             </form>
             {result.length >= 1 ? (
-                result.map((album) => <Album {...album} />)
+                result.map((album) => <Album {...album} key={album.id} />)
             ) : (
                 <div>{noResult}</div>
             )}

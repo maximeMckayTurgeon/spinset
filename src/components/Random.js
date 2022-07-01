@@ -18,7 +18,7 @@ const Random = (props) => {
 
     return (
         <div className="random">
-            <Album {...randomAlbum} />
+            <Album {...randomAlbum} key={randomAlbum.id} />
             <button className="fancy" value="random" onClick={getNewAlbum}>
                 <span className="top-key"></span>
                 <span className="text">Pas ca!</span>
