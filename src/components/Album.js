@@ -62,7 +62,6 @@ const Album = (props) => {
                     )}
                     {hideAddButton && (
                         <button
-                            value={id}
                             type="button"
                             className="fancy mt-3"
                             onClick={deleteFromPlaylist}
