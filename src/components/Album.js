@@ -1,11 +1,31 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { Col, Row, Image } from "react-bootstrap";
 
 const Album = (props) => {
-    const { basic_information } = props;
+    const { basic_information, hideAddButton, id } = props;
+    const [confirmation, setConfirmation] = useState("");
     if (!basic_information) {
         return null;
     }
+
+    const addToPlaylist = () => {
+        axios
+            .post("https://spinset-db.herokuapp.com/albums", basic_information)
+            .then(() => {
+                setConfirmation("C'est ajouté!");
+            });
+    };
+
+    const deleteFromPlaylist = (e) => {
+        console.log(e.target.value);
+        axios
+            .delete(`https://spinset-db.herokuapp.com/albums/${e.target.value}`)
+            .then(() => {
+                setConfirmation("C'est deleté!");
+            });
+    };
+    console.log(`id: ${id}`);
 
     return (
         <div className="album">
@@ -29,6 +49,32 @@ const Album = (props) => {
                                 <span className="style">{style}</span>
                             ))}
                     </div>
+                    {!hideAddButton && (
+                        <button
+                            type="button"
+                            className="fancy mt-3"
+                            onClick={addToPlaylist}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">Ajouter à la Playlist</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
+                    )}
+                    {hideAddButton && (
+                        <button
+                            type="button"
+                            className="fancy mt-3"
+                            onClick={deleteFromPlaylist}
+                            value={id}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">Deleter de la Playlist</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
+                    )}
+                    <div>{confirmation}</div>
                 </Col>
             </Row>
         </div>

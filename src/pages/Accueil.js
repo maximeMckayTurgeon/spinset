@@ -5,6 +5,7 @@ import Random from "../components/Random";
 import Search from "../components/Search";
 import { Col, Container, Row } from "react-bootstrap";
 import CountUp from "react-countup";
+import Playlist from "../components/Playlist";
 
 const Accueil = () => {
     const [isLoading, setLoading] = useState(true);
@@ -99,12 +100,25 @@ const Accueil = () => {
                             <span className="bottom-key-2"></span>
                         </button>
                     </Col>
+                    <Col className="text-center my-2">
+                        <button
+                            className="fancy"
+                            value="playlist"
+                            onClick={chooseModule}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">Playlist</span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
+                    </Col>
                 </Row>
 
                 {{
                     random: <Random {...collection} />,
                     filter: <Filter {...collection} />,
-                    search: <Search {...collection} />
+                    search: <Search {...collection} />,
+                    playlist: <Playlist  />
                 }[module] || (
                     <div className="vinyl">
                         <img
