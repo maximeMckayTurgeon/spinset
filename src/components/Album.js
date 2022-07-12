@@ -17,10 +17,9 @@ const Album = (props) => {
             });
     };
 
-    const deleteFromPlaylist = (e) => {
-        console.log(e.target.value);
+    const deleteFromPlaylist = () => {
         axios
-            .delete(`https://spinset-db.herokuapp.com/albums/${e.target.value}`)
+            .delete(`https://spinset-db.herokuapp.com/albums/${id}`)
             .then(() => {
                 setConfirmation("C'est deleté!");
             });
@@ -63,10 +62,10 @@ const Album = (props) => {
                     )}
                     {hideAddButton && (
                         <button
+                            value={id}
                             type="button"
                             className="fancy mt-3"
                             onClick={deleteFromPlaylist}
-                            value={id}
                         >
                             <span className="top-key"></span>
                             <span className="text">Deleter de la Playlist</span>

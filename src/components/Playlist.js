@@ -17,10 +17,10 @@ const Playlist = () => {
         <div>
             {playlist.map((album) => (
                 <Album
+                    id={album.id}
                     basic_information={album}
                     key={album.id}
                     hideAddButton={true}
-                    id={album.id}
                 />
             ))}
         </div>
