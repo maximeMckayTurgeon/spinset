@@ -1,15 +1,49 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Image } from "react-bootstrap";
 
 const Album = (props) => {
-	const { basic_information, hideAddButton, id } = props;
+	const { basic_information, hideAddButton, tokenSpotify, id } = props;
 	const [confirmation, setConfirmation] = useState("");
 	const [playlistIsLoading, setPlaylistIsLoading] = useState(false);
 	const [disableButton, setDisableButton] = useState(false);
+	const [searchResultSpotify, setSearchResultSpotify] = useState([]);
+	const [exactArtistID, setExactArtistID] = useState("");
+
+	useEffect(() => {
+		if (tokenSpotify) {
+			console.log(`name: ${basic_information.name}`);
+			axios
+				.get("https://api.spotify.com/v1/search", {
+					headers: {
+						Authorization: `Bearer ${tokenSpotify}`,
+					},
+					params: {
+						q: basic_information.artists[0].name,
+						type: "artist",
+					},
+				})
+				.then((res) => {
+					setSearchResultSpotify(res.data.artists.items);
+				});
+		}
+	}, []);
+
+	useEffect(() => {
+		for (let artist of searchResultSpotify) {
+			if (artist.name === basic_information.artists[0].name) {
+				setExactArtistID(artist.id);
+				console.log(`id artiste: ${artist.id}`);
+			}
+		}
+		console.log(exactArtistID);
+	}, [searchResultSpotify]);
+
 	if (!basic_information) {
 		return null;
 	}
+
+	console.log(searchResultSpotify);
 
 	const addToPlaylist = (e) => {
 		setPlaylistIsLoading(true);
@@ -93,6 +127,30 @@ const Album = (props) => {
 									</div>
 								) : (
 									"Deleter de la Playlist"
+								)}
+							</span>
+							<span className="bottom-key-1"></span>
+							<span className="bottom-key-2"></span>
+						</button>
+					)}
+					{tokenSpotify && (
+						<button
+							type="button"
+							className="fancy mt-3"
+							// onClick={deleteFromPlaylist}
+							// disabled={disableButton}
+						>
+							<span className="top-key"></span>
+							<span className="text">
+								{" "}
+								{playlistIsLoading ? (
+									<div className="loading">
+										<span></span>
+										<span></span>
+										<span></span>
+									</div>
+								) : (
+									"Ajouter à ton Spotify"
 								)}
 							</span>
 							<span className="bottom-key-1"></span>
