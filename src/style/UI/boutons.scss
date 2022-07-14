@@ -67,6 +67,16 @@
             right: 0;
             width: 0;
         }
+
+        .loading {
+            span:nth-child(2) {
+                background: white
+            }
+        }
+    }
+
+    .loading {
+        width:185px;
     }
 
     .text {
