@@ -17,21 +17,27 @@ const Album = (props) => {
     const [tracksIDs, setTrackIDs] = useState([]);
     const [playlistSpotifyExists, setPlaylistSpotifyExists] = useState(false);
     const [playlistSpotifyID, setPlaylistSpotifyID] = useState("");
-    const [addTracks, setAddTracks] = useState(false);
+    const [isOnSpotify, setIsOnSpotify] = useState(false);
+    const [disableButtonSpotify, setDisableButtonSpotify] = useState(false);
 
-    let tracksArr = [];
     console.log(spotifyID);
 
     //recherche spotify pour le nom d'artiste de l'api discogs
     useEffect(() => {
-        if (tokenSpotify) {
+        if (hideAddButton) {
+            let artistName = basic_information.artists[0].name.includes("(")
+                ? basic_information.artists[0].name
+                      .slice(0, basic_information.artists[0].name.indexOf("("))
+                      .trim()
+                : basic_information.artists[0].name;
+            console.log("enter spotify flow");
             axios
                 .get("https://api.spotify.com/v1/search", {
                     headers: {
                         Authorization: `Bearer ${tokenSpotify}`
                     },
                     params: {
-                        q: basic_information.artists[0].name,
+                        q: artistName,
                         type: "artist"
                     }
                 })
@@ -42,7 +48,7 @@ const Album = (props) => {
     }, []);
 
     useEffect(() => {
-        if (tokenSpotify) {
+        if (hideAddButton) {
             axios
                 .get(`	https://api.spotify.com/v1/me/playlists`, {
                     headers: {
@@ -52,66 +58,92 @@ const Album = (props) => {
                 .then((res) => {
                     let playlists = res.data.items;
                     for (let playlist of playlists) {
-                        if (playlist.name == "Spinset") {
+                        if (playlist.name === "Spinset") {
                             setPlaylistSpotifyID(playlist.id);
-							
+                            setPlaylistSpotifyExists(true);
                             console.log(`get playlist id ${playlist.id}`);
                             break;
                         }
                     }
                 });
         }
-    }, []);
+    }, [playlistSpotifyExists]);
 
     //Cherche un === nom d'artiste spotify et extrait son ID
     useEffect(() => {
-        for (let artist of searchResultSpotify) {
-            if (artist.name === basic_information.artists[0].name) {
-                setExactArtistID(artist.id);
-                break;
+        if (hideAddButton) {
+            let artistName = basic_information.artists[0].name.includes("(")
+                ? basic_information.artists[0].name
+                      .slice(0, basic_information.artists[0].name.indexOf("("))
+                      .trim()
+                : basic_information.artists[0].name;
+            for (let artist of searchResultSpotify) {
+                if (artist.name.toLowerCase() === artistName.toLowerCase()) {
+                    setExactArtistID(artist.id);
+                    console.log(`1. id d'artiste: ${artist.id}`);
+                    break;
+                }
             }
         }
     }, [searchResultSpotify]);
 
     //Va chercher la discography de l'ID
     useEffect(() => {
-        console.log(`artist id: ${exactArtistID}`);
-        axios
-            .get(`https://api.spotify.com/v1/artists/${exactArtistID}/albums`, {
-                headers: {
-                    Authorization: `Bearer ${tokenSpotify}`
-                }
-            })
-            .then((res) => {
-                setArtistAlbumsSpotify(res.data.items);
-            });
+        if (hideAddButton) {
+            console.log(`artist id: ${exactArtistID}`);
+            axios
+                .get(
+                    `https://api.spotify.com/v1/artists/${exactArtistID}/albums`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenSpotify}`
+                        }
+                    }
+                )
+                .then((res) => {
+                    setArtistAlbumsSpotify(res.data.items);
+                    console.log(`2. Discography de l'ID: ${res.data.items}`);
+                });
+        }
     }, [exactArtistID]);
 
     useEffect(() => {
         for (let album of artistAlbumsSpotify) {
-            if (album.name == basic_information.title) {
+            if (
+                album.name.toLowerCase() ===
+                basic_information.title.toLowerCase()
+            ) {
                 setAlbumSpotifyId(album.id);
-                console.log(`album id: ${albumSpotifyId}`);
+                setIsOnSpotify(true);
+                console.log(`3. album id: ${albumSpotifyId}`);
                 break;
             }
         }
     }, [artistAlbumsSpotify]);
 
     useEffect(() => {
-        console.log(albumSpotifyId);
-        axios
-            .get(`	https://api.spotify.com/v1/albums/${albumSpotifyId}/tracks`, {
-                headers: {
-                    Authorization: `Bearer ${tokenSpotify}`
-                }
-            })
-            .then((res) => {
-                setTracks(res.data.items);
-            });
+        if (hideAddButton) {
+            axios
+                .get(
+                    `	https://api.spotify.com/v1/albums/${albumSpotifyId}/tracks`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${tokenSpotify}`
+                        }
+                    }
+                )
+                .then((res) => {
+                    setTracks(res.data.items);
+                    console.log(`4. tracks: ${res.data.items}`);
+                });
+        }
     }, [albumSpotifyId]);
 
     useEffect(() => {
-        setTrackIDs(tracks.map((track) => `spotify:track:${track.id}`));
+        if (hideAddButton) {
+            setTrackIDs(tracks.map((track) => `spotify:track:${track.id}`));
+            console.log(`5: tracksIDs: ${tracksIDs}`);
+        }
     }, [tracks]);
 
     // useEffect(() => {
@@ -144,16 +176,22 @@ const Album = (props) => {
     };
 
     const addAlbumTracks = () => {
+        console.log(tracksIDs);
         console.log(`uris: ${tracksIDs}`);
-        axios.post(
-            `https://api.spotify.com/v1/playlists/${playlistSpotifyID}/tracks`,
-            { uris: tracksIDs },
-            {
-                headers: {
-                    Authorization: `Bearer ${tokenSpotify}`
+        axios
+            .post(
+                `https://api.spotify.com/v1/playlists/${playlistSpotifyID}/tracks`,
+                { uris: tracksIDs },
+                {
+                    headers: {
+                        Authorization: `Bearer ${tokenSpotify}`
+                    }
                 }
-            }
-        );
+            )
+            .then(() => {
+                setConfirmation("Album ajouté à ton spotify!");
+                setDisableButtonSpotify(true);
+            });
     };
 
     const addToPlaylist = (e) => {
@@ -178,7 +216,7 @@ const Album = (props) => {
             });
     };
 
-    if (!basic_information) {
+    if (!basic_information || (hideAddButton && !tracksIDs)) {
         return null;
     }
 
@@ -251,55 +289,55 @@ const Album = (props) => {
                             <span className="bottom-key-2"></span>
                         </button>
                     )}
-                    {tokenSpotify && (
-                        <>
-                            <button
-                                type="button"
-                                className="fancy mt-3"
-                                onClick={addAlbumTracks}
-                                // disabled={disableButton}
-                            >
-                                <span className="top-key"></span>
-                                <span className="text">
-                                    {" "}
-                                    {playlistIsLoading ? (
-                                        <div className="loading">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </div>
-                                    ) : (
-                                        "Ajouter à ton Spotify"
-                                    )}
-                                </span>
-                                <span className="bottom-key-1"></span>
-                                <span className="bottom-key-2"></span>
-                            </button>
-                            <button
-                                type="button"
-                                className="fancy mt-3"
-                                onClick={createSpotifyPlaylist}
-                                // disabled={disableButton}
-                            >
-                                <span className="top-key"></span>
-                                <span className="text">
-                                    {" "}
-                                    {playlistIsLoading ? (
-                                        <div className="loading">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </div>
-                                    ) : (
-                                        "Créer une playlist spotify \"spinset\""
-                                    )}
-                                </span>
-                                <span className="bottom-key-1"></span>
-                                <span className="bottom-key-2"></span>
-                            </button>
-                        </>
+                    {hideAddButton && playlistSpotifyExists && isOnSpotify && (
+                        <button
+                            type="button"
+                            className="fancy mt-3"
+                            onClick={addAlbumTracks}
+                            disabled={disableButtonSpotify}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">
+                                {" "}
+                                {playlistIsLoading ? (
+                                    <div className="loading">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                ) : (
+                                    "Ajouter à ton Spotify"
+                                )}
+                            </span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
                     )}
-                    <div>{confirmation}</div>
+                    {!playlistSpotifyExists && hideAddButton && (
+                        <button
+                            type="button"
+                            className="fancy mt-3"
+                            onClick={createSpotifyPlaylist}
+                        >
+                            <span className="top-key"></span>
+                            <span className="text">
+                                {" "}
+                                {playlistIsLoading ? (
+                                    <div className="loading">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                ) : (
+                                    'Créer une playlist spotify "spinset"'
+                                )}
+                            </span>
+                            <span className="bottom-key-1"></span>
+                            <span className="bottom-key-2"></span>
+                        </button>
+                    )}
+
+                    <h2>{confirmation}</h2>
                 </Col>
             </Row>
         </div>
