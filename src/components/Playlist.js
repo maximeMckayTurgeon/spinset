@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 
 const Playlist = () => {
     const CLIENT_ID = "95383cdfac9943cf814a92aefe535ab5";
-    const REDIRECT_URI = "http://spinset.netlify.app/";
+    const REDIRECT_URI = "https://spinset.netlify.app/";
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
     const RESPONSE_TYPE = "token";
     const SCOPE =
