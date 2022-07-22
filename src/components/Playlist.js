@@ -5,22 +5,23 @@ import { Col, Row } from "react-bootstrap";
 
 const Playlist = () => {
     const CLIENT_ID = "95383cdfac9943cf814a92aefe535ab5";
-    const REDIRECT_URI = "https://spinset.netlify.app/";
+    const REDIRECT_URI = "https://spinset.netlify.app"; //https://spinset.netlify.app/ http://localhost:8888/
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
     const RESPONSE_TYPE = "token";
     const SCOPE =
         "playlist-modify-private playlist-modify-public user-library-modify playlist-modify-public playlist-read-private";
     const [playlist, setPlaylist] = useState([]);
     const [token, setToken] = useState("");
-    const [spotifyID, setSpotifyID] = useState("");
+    const [spotifyID, setSpotifyID] = useState("guest");
 
     useEffect(() => {
+        let userID = window.localStorage.getItem("userID")
+            ? window.localStorage.getItem("userID")
+            : spotifyID;
         axios
-            .get("https://spinset-db.herokuapp.com/albums")
+            .get(`https://spinset-db.herokuapp.com/albums?userID=${userID}`)
             .then((res) => setPlaylist(res.data));
     }, []);
-
-    console.log(playlist);
 
     //check l'url pour le token spotify et l'extrait dans token
     useEffect(() => {
@@ -49,11 +50,17 @@ const Playlist = () => {
                 }
             })
             .then((res) => setSpotifyID(res.data.id));
+        console.log(`spotifyID: ${spotifyID}`);
     }, [token]);
+
+    useEffect(() => {
+        window.localStorage.setItem("userID", spotifyID);
+    }, [spotifyID]);
 
     const logout = () => {
         setToken("");
         window.localStorage.removeItem("token");
+        window.localStorage.removeItem("userID");
     };
 
     return (

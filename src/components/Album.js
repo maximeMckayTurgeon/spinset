@@ -20,6 +20,8 @@ const Album = (props) => {
     const [isOnSpotify, setIsOnSpotify] = useState(false);
     const [disableButtonSpotify, setDisableButtonSpotify] = useState(false);
 
+    let userID = window.localStorage.getItem("userID");
+
     console.log(spotifyID);
 
     //recherche spotify pour le nom d'artiste de l'api discogs
@@ -194,10 +196,13 @@ const Album = (props) => {
             });
     };
 
-    const addToPlaylist = (e) => {
+    const addToPlaylist = () => {
         setPlaylistIsLoading(true);
         axios
-            .post("https://spinset-db.herokuapp.com/albums", basic_information)
+            .post(`https://spinset-db.herokuapp.com/albums`, {
+                ...basic_information,
+                userID: window.localStorage.getItem("userID")
+            })
             .then(() => {
                 setConfirmation("C'est ajouté!");
                 setPlaylistIsLoading(false);
